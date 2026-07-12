@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLang } from '../context/LanguageContext';
 import Lightbox from './Lightbox';
 import { ZoomIn, FileText } from 'lucide-react';
-import nn from '../assets/nn.png';
+import nn from '../assets/nn.PNG';
 
 const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
   <div className="text-center mb-14">
