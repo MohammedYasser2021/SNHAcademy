@@ -1,7 +1,7 @@
 import React from 'react';
 import { useLang } from '../context/LanguageContext';
 import { Heart, Users, Award, Building2 } from 'lucide-react';
-import cover from '../assets/cover.png';
+import cover from '../assets/cover.jpg';
 
 const stats = [
   { icon: <Bed />, numAr: '+500', numEn: '500+', labelAr: 'سرير', labelEn: 'Beds' },
