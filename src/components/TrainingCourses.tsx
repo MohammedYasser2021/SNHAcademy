@@ -3,6 +3,13 @@ import { useLang } from '../context/LanguageContext';
 import Lightbox from './Lightbox';
 import { ZoomIn } from 'lucide-react';
 
+import training1 from '../assets/Training_1.png';
+import training2 from '../assets/Training_2.png';
+import training3 from '../assets/Training_3.png';
+import training4 from '../assets/Training_4.png';
+import training5 from '../assets/Training_5.png';
+import training6 from '../assets/Training_6.png';
+
 const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
   <div className="text-center mb-14">
     <h2 className="text-3xl md:text-4xl font-bold text-[#0a2342] mb-3">{title}</h2>
@@ -11,7 +18,7 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
   </div>
 );
 
-const trainingImages = Array.from({ length: 6 }, (_, i) => `../assets/Training_${i + 1}.png`);
+const trainingImages = [training1, training2, training3, training4, training5, training6];
 
 export default function TrainingCourses() {
   const { isAr } = useLang();

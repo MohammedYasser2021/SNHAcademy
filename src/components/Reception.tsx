@@ -1,5 +1,7 @@
 import React from 'react';
 import { useLang } from '../context/LanguageContext';
+import reception from '../assets/reception.png';
+import logo from '../assets/logo.png';
 
 export default function Reception() {
   const { isAr } = useLang();
@@ -8,7 +10,7 @@ export default function Reception() {
     <section className="relative overflow-hidden">
       <div className="relative h-[50vh] md:h-[60vh]">
         <img
-          src="src/assets/reception.png"
+          src={reception}
           alt="Academy Reception"
           className="w-full h-full object-cover"
         />
@@ -17,7 +19,7 @@ export default function Reception() {
           <div className="max-w-7xl mx-auto px-8 md:px-14 w-full">
             <div className="max-w-xl space-y-5">
               <div className="bg-white inline-flex rounded-xl p-3 shadow-lg">
-                <img src="src/assets/logo.png" alt="Logo" className="h-14 object-contain" />
+                <img src={logo} alt="Logo" className="h-14 object-contain" />
               </div>
               <h2 className="text-white text-3xl md:text-4xl font-bold leading-snug">
                 {isAr ? 'مرحباً بكم في أكاديمية مستشفى نجران المتخصص' : 'Welcome to Najran Specialized Hospital Academy'}
