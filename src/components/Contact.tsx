@@ -25,19 +25,12 @@ const contactInfo = [
     value: 'academic.affairs@najransh.sa',
     link: 'mailto:academic.affairs@najransh.sa',
   },
-  {
+  {   
     icon: <MapPin size={22} />,
     ar: 'الموقع',
     en: 'Location',
-    value: 'مستشفى نجران المتخصص، نجران، المملكة العربية السعودية',
-    valueEn: 'Najran Specialized Hospital, Najran, Saudi Arabia',
-  },
-  {
-    icon: <Clock size={22} />,
-    ar: 'ساعات العمل',
-    en: 'Working Hours',
-    value: 'الأحد – الخميس: 8:00ص – 4:00م',
-    valueEn: 'Sunday – Thursday: 8:00 AM – 4:00 PM',
+    value: 'أكاديمية مستشفى تخصصي نجران الصحية، المملكة العربية السعودية',
+    valueEn: 'Specialized Najran Hospital Health Academy, Najran, Saudi Arabia',
   },
 ];
 

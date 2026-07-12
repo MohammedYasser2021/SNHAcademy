@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useLang } from '../context/LanguageContext';
 import Lightbox from './Lightbox';
-import { ZoomIn, FileText } from 'lucide-react';
+import { ZoomIn, FileText, ShieldCheck } from 'lucide-react';
 import nn from '../assets/nn.PNG';
 
 const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
@@ -18,49 +18,66 @@ export default function CommercialReg() {
 
   return (
     <section id="cr" className="py-24 bg-white">
-      <div className="max-w-4xl mx-auto px-4">
+      <div className="max-w-5xl mx-auto px-4">
         <SectionHeading
           title={isAr ? 'السجل التجاري' : 'Commercial Registration'}
           subtitle={isAr ? 'الهوية القانونية للأكاديمية' : 'Academy Legal Identity'}
         />
 
-        <div className="flex flex-col md:flex-row items-center gap-10 bg-gray-50 rounded-3xl p-8 md:p-12 border border-gray-100">
-          <div className="flex-shrink-0">
-            <div className="w-16 h-16 bg-[#0a2342] rounded-2xl flex items-center justify-center">
-              <FileText size={32} className="text-white" />
+        <div className="grid md:grid-cols-2 gap-0 bg-gray-50 rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
+          {/* Info side */}
+          <div className="flex flex-col justify-center gap-5 p-8 md:p-12 text-center md:text-start">
+            <div className="flex items-center justify-center md:justify-start gap-3">
+              <div className="w-14 h-14 bg-[#0a2342] rounded-2xl flex items-center justify-center flex-shrink-0">
+                <FileText size={26} className="text-white" />
+              </div>
+              <span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-700 bg-emerald-50 border border-emerald-100 px-3 py-1.5 rounded-full">
+                <ShieldCheck size={14} />
+                {isAr ? 'موثّق ومعتمد' : 'Verified & Accredited'}
+              </span>
             </div>
-          </div>
-          <div className="flex-1 text-center md:text-start">
-            <h3 className="text-[#0a2342] font-bold text-xl mb-2">
-              {isAr ? 'أكاديمية مستشفى نجران المتخصص' : 'Najran Specialized Hospital Academy'}
+
+            <h3 className="text-[#0a2342] font-bold text-xl md:text-2xl leading-snug">
+              {isAr ? 'أكاديمية مستشفى تخصصي نجران الصحية' : 'Specialized Najran Hospital Health Academy'}
             </h3>
-            <p className="text-gray-500 text-sm mb-6">
+
+            <p className="text-gray-500 text-sm leading-relaxed">
               {isAr
-                ? 'انقر على الصورة أدناه لعرض شهادة السجل التجاري بصيغة أكبر'
-                : 'Click the image below to view the Commercial Registration certificate in full size'}
+                ? 'وثيقة السجل التجاري الرسمية التي تثبت الهوية القانونية للأكاديمية. انقر على الصورة لعرضها بالحجم الكامل.'
+                : 'The official Commercial Registration document confirming the academy\u2019s legal identity. Click the certificate to view it in full size.'}
             </p>
+
             <button
               onClick={() => setOpen(true)}
-              className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 inline-block cursor-pointer"
+              className="mt-2 inline-flex items-center justify-center md:justify-start gap-2 text-[#0a2342] font-semibold text-sm hover:text-[#7a1a3a] transition-colors duration-300 w-fit mx-auto md:mx-0"
             >
-              <img
-                src={nn}
-                alt="Commercial Registration"
-                className="max-h-80 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
-              />
-              <div className="absolute inset-0 bg-[#0a2342]/0 group-hover:bg-[#0a2342]/30 transition-all duration-300 flex items-center justify-center rounded-2xl">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/20 backdrop-blur-sm rounded-full p-4">
-                  <ZoomIn size={28} className="text-white" />
-                </div>
-              </div>
+              <ZoomIn size={18} />
+              {isAr ? 'عرض الشهادة بالحجم الكامل' : 'View full-size certificate'}
             </button>
           </div>
+
+          {/* Image side: fills its column fully, responsive height */}
+          <button
+            onClick={() => setOpen(true)}
+            className="group relative w-full h-64 md:h-full min-h-[280px] overflow-hidden cursor-pointer bg-white"
+          >
+            <img
+              src={nn}
+              alt={isAr ? 'شهادة السجل التجاري' : 'Commercial Registration certificate'}
+              className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+            />
+            <div className="absolute inset-0 bg-[#0a2342]/0 group-hover:bg-[#0a2342]/40 transition-colors duration-300 flex items-center justify-center">
+              <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/20 backdrop-blur-sm rounded-full p-4">
+                <ZoomIn size={28} className="text-white" />
+              </div>
+            </div>
+          </button>
         </div>
       </div>
 
       {open && (
         <Lightbox
-          images={['/assets/nn.png']}
+          images={[nn]}
           index={0}
           onClose={() => setOpen(false)}
           onPrev={() => {}}

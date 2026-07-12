@@ -1,90 +1,85 @@
 import React from 'react';
 import { useLang } from '../context/LanguageContext';
-import { Target, CheckCircle2 } from 'lucide-react';
 
-interface Objective {
-  numAr: string;
-  numEn: string;
-  ar: string;
-  en: string;
-  descAr: string;
-  descEn: string;
-  target: string;
-  unit: (isAr: boolean) => string;
+const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
+  <div className="text-center mb-14">
+    <h2 className="text-3xl md:text-4xl font-bold text-[#0a2342] mb-3">{title}</h2>
+    {subtitle && <p className="text-[#7a1a3a] font-medium text-lg">{subtitle}</p>}
+    <div className="mt-4 mx-auto w-20 h-1 bg-gradient-to-r from-[#0a2342] to-[#7a1a3a] rounded-full" />
+  </div>
+);
+
+interface Column {
+  titleAr: string;
+  titleEn: string;
+  itemsAr: string[];
+  itemsEn: string[];
 }
 
-const objectives: Objective[] = [
+const columns: Column[] = [
   {
-    numAr: '01',
-    numEn: '01',
-    ar: 'رفع عدد الساعات التعليمية المعتمدة',
-    en: 'Increase Accredited Educational Hours',
-    descAr:
-      'تحقيق 2000+ ساعة تعليمية معتمدة من الهيئة السعودية للتخصصات الطبية خلال عام 2026.',
-    descEn:
-      'Achieve 2000+ accredited educational hours from the Saudi Commission for Health Specialties during 2026.',
-    target: '2,000+',
-    unit: (isAr: boolean) => (isAr ? 'ساعة' : 'Hours'),
+    titleAr: 'LSTC',
+    titleEn: 'LSTC',
+    itemsAr: [
+      'التقدم للحصول على الاعتماد لجميع الدورات الإلزامية للهيئة السعودية للتخصصات الصحية.',
+      'التواصل المستمر مع جميع المرافق الصحية والشركات وجامعات العلوم الصحية.',
+    ],
+    itemsEn: [
+      'Apply for accreditation for all SHA mandatory courses.',
+      'Continuous communication with all healthcare facilities, companies, and health science universities.',
+    ],
   },
   {
-    numAr: '02',
-    numEn: '02',
-    ar: 'تطوير برامج جديدة',
-    en: 'Develop New Programs',
-    descAr:
-      'إطلاق 10 برامج تدريبية جديدة في تخصصات طبية وإدارية متنوعة.',
-    descEn:
-      'Launch 10 new training programs in various medical and administrative specialties.',
-    target: '10',
-    unit: (isAr: boolean) => (isAr ? 'برامج' : 'Programs'),
+    titleAr: 'التدريب السريري',
+    titleEn: 'Clinical Training',
+    itemsAr: [
+      'التواصل المستمر مع جميع المرافق الصحية والشركات وجامعات العلوم الصحية وكافة الجهات التعليمية (الخاصة والحكومية) لاستكشاف فرص التدريب لطلاب الدراسات العليا والجامعية والامتياز والتطوير المهني من الهيئة السعودية للتخصصات الصحية.',
+    ],
+    itemsEn: [
+      "Continuous communication with all healthcare facilities, companies, health science universities and all teaching institutions (private and governmental) to grasp the opportunities for post-graduate, under-graduate, internship and professional development trainings from SCFHS.",
+    ],
   },
   {
-    numAr: '03',
-    numEn: '03',
-    ar: 'زيادة أعداد المتدربين',
-    en: 'Increase Number of Trainees',
-    descAr:
-      'استقبال أكثر من 500 متدرب من داخل وخارج المستشفى خلال عام 2026.',
-    descEn:
-      'Welcome more than 500 trainees from inside and outside the hospital during 2026.',
-    target: '500+',
-    unit: (isAr: boolean) => (isAr ? 'متدرب' : 'Trainees'),
+    titleAr: 'الأكاديمية الصحية',
+    titleEn: 'Health Academy',
+    itemsAr: [
+      'متابعة البرنامج التدريبي التاسع لكل فرع (PCT، CSSD، EEG، ECG، مساعد أسنان، Ortho-Cast، الاستجابة الأولى، البصريات، الترميز السريري).',
+    ],
+    itemsEn: [
+      'Follow up the 9th training program per branch (PCT, CSSD, EEG, ECG, Dental Asst., Ortho-Cast, First Responder, Optics, Clinical Coding).',
+    ],
   },
   {
-    numAr: '04',
-    numEn: '04',
-    ar: 'الحصول على اعتمادات إضافية',
-    en: 'Obtain Additional Accreditations',
-    descAr:
-      'السعي للحصول على 3 اعتمادات دولية إضافية في مجال التعليم الطبي والجودة.',
-    descEn:
-      'Pursue 3 additional international accreditations in medical education and quality.',
-    target: '3',
-    unit: (isAr: boolean) => (isAr ? 'اعتمادات' : 'Accreditations'),
+    titleAr: 'CPD/CME',
+    titleEn: 'CPD/CME',
+    itemsAr: [
+      'متابعة تنفيذ الخطة الأكاديمية والعلمية لمستشفى نجران 2025.',
+      'تفعيل جميع الأيام الصحية العالمية.',
+      'تصميم دبلوم RCM.',
+    ],
+    itemsEn: [
+      'Follow up the implement of 2025 HNH Academic and Scientific Plan.',
+      "Activate all Int'l Health Days.",
+      'Design RCM diploma.',
+    ],
   },
   {
-    numAr: '05',
-    numEn: '05',
-    ar: 'الشراكات الأكاديمية',
-    en: 'Academic Partnerships',
-    descAr:
-      'إبرام 5 اتفاقيات شراكة مع مؤسسات أكاديمية وطبية محلية ودولية.',
-    descEn:
-      'Sign 5 partnership agreements with local and international academic and medical institutions.',
-    target: '5',
-    unit: (isAr: boolean) => (isAr ? 'شراكات' : 'Partnerships'),
+    titleAr: 'المؤتمرات',
+    titleEn: 'Conferences',
+    itemsAr: [
+      'تنظيم مؤتمر علمي دولي واحد على الأقل خارج المملكة العربية السعودية.',
+      'متابعة تفعيل الجولات الطبية والتمريضية الكبرى.',
+    ],
+    itemsEn: [
+      'Conduct at least 1 International Scientific Conference outside KSA.',
+      'Follow up activating the Medical and Nursing Grand Rounds.',
+    ],
   },
   {
-    numAr: '06',
-    numEn: '06',
-    ar: 'نشر الأبحاث العلمية',
-    en: 'Publish Scientific Research',
-    descAr:
-      'دعم نشر 20 ورقة بحثية علمية في مجلات طبية محكّمة على المستوى المحلي والدولي.',
-    descEn:
-      'Support the publication of 20 scientific research papers in peer-reviewed medical journals locally and internationally.',
-    target: '20',
-    unit: (isAr: boolean) => (isAr ? 'بحثًا' : 'Papers'),
+    titleAr: 'برنامج الإقامة السعودي',
+    titleEn: 'Saudi Residency Program',
+    itemsAr: ['التقدم لبرنامج إقامة واحد في النساء والولادة بالمدينة المنورة.'],
+    itemsEn: ['Apply for 1 Residency Obg&Gyne Madinah.'],
   },
 ];
 
@@ -92,61 +87,44 @@ export default function Objectives2026() {
   const { isAr } = useLang();
 
   return (
-    <section id="objectives" className="py-24 bg-[#0a2342]">
+    <section id="objectives" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4">
-        <div className="text-center mb-14">
-          <h2 className="text-3xl md:text-4xl font-bold text-white mb-3">
-            {isAr ? 'أهداف الأكاديمية 2026' : 'Academy Objectives 2026'}
-          </h2>
+        <SectionHeading
+          title={isAr ? 'أهداف الأكاديمية 2026' : 'Academy Objectives 2026'}
+          subtitle={isAr ? 'خطتنا الاستراتيجية للتميز' : 'Our Strategic Plan for Excellence'}
+        />
 
-          <p className="text-amber-300 font-medium text-lg">
-            {isAr
-              ? 'خطتنا الاستراتيجية للتميز'
-              : 'Our Strategic Plan for Excellence'}
-          </p>
-
-          <div className="mt-4 mx-auto w-20 h-1 bg-amber-400 rounded-full" />
-        </div>
-
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {objectives.map((obj, i) => (
-            <div
-              key={i}
-              className="bg-white/5 border border-white/10 rounded-2xl p-7 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1 flex flex-col gap-4"
-            >
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-amber-400 rounded-xl flex items-center justify-center flex-shrink-0">
-                  <Target size={22} className="text-[#0a2342]" />
-                </div>
-
-                <div>
-                  <span className="text-amber-400/60 text-xs font-mono">
-                    {isAr ? obj.numAr : obj.numEn}
-                  </span>
-
-                  <h3 className="text-white font-bold text-base leading-tight">
-                    {isAr ? obj.ar : obj.en}
-                  </h3>
-                </div>
-              </div>
-
-              <p className="text-white/60 text-sm leading-relaxed">
-                {isAr ? obj.descAr : obj.descEn}
-              </p>
-
-              <div className="mt-auto pt-4 border-t border-white/10 flex items-center gap-3">
-                <CheckCircle2 size={18} className="text-amber-400" />
-
-                <span className="text-amber-300 font-bold text-xl">
-                  {obj.target}
-                </span>
-
-                <span className="text-white/50 text-sm">
-                  {obj.unit(isAr)}
-                </span>
-              </div>
-            </div>
-          ))}
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[900px] border-collapse border border-gray-300">
+            <thead>
+              <tr>
+                {columns.map((col, i) => (
+                  <th
+                    key={i}
+                    className="border border-gray-300 px-4 py-3 text-amber-700 font-bold text-center align-middle text-[15px]"
+                  >
+                    {isAr ? col.titleAr : col.titleEn}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                {columns.map((col, i) => (
+                  <td
+                    key={i}
+                    className="border border-gray-300 px-4 py-4 align-top text-[#0a2342] text-sm leading-relaxed"
+                  >
+                    <div className="flex flex-col gap-4">
+                      {(isAr ? col.itemsAr : col.itemsEn).map((item, j) => (
+                        <p key={j}>{item}</p>
+                      ))}
+                    </div>
+                  </td>
+                ))}
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </section>

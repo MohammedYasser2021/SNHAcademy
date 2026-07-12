@@ -23,49 +23,35 @@ export default function Hospital() {
       <div className="relative h-[60vh] md:h-[70vh] overflow-hidden">
         <img
           src={cover}
-          alt="Najran Specialized Hospital"
+          alt="Najran Specialized Hospital Health Academy"
           className="w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-[#0a2342] via-[#0a2342]/40 to-transparent" />
         <div className="absolute bottom-0 left-0 right-0 p-8 md:p-14">
           <h2 className="text-white text-3xl md:text-5xl font-bold mb-4 drop-shadow">
-            {isAr ? 'مستشفى نجران المتخصص' : 'Najran Specialized Hospital'}
+            {isAr ? 'أكاديمية مستشفى تخصصي نجران الصحية' : 'Specialized Najran Hospital Health Academy'}
           </h2>
           <p className="text-white/80 text-base md:text-lg max-w-2xl leading-relaxed">
             {isAr
-              ? 'صرح طبي رائد في منطقة نجران، يقدم خدمات صحية متكاملة بأعلى معايير الجودة والسلامة، مع الالتزام الراسخ بالاعتماد الدولي والتميز في الرعاية.'
-              : 'A leading medical institution in the Najran region, providing comprehensive health services with the highest standards of quality and safety, with a firm commitment to international accreditation and excellence in care.'}
+              ? 'صرح تعليمي وتدريبي رائد في منطقة نجران، يُعنى بإعداد وتأهيل الكوادر الصحية وفق أعلى المعايير العالمية، مع التزام راسخ بالتطوير المهني المستمر والابتكار في التعليم الصحي.'
+              : 'A leading educational and training institution in the Najran region, dedicated to preparing and qualifying healthcare personnel according to the highest international standards, with a firm commitment to continuous professional development and innovation in health education.'}
           </p>
         </div>
       </div>
 
-      {/* Stats bar */}
-      <div className="bg-[#0a2342] text-white">
-        <div className="max-w-7xl mx-auto px-4 grid grid-cols-2 md:grid-cols-4 gap-0 divide-x divide-white/10">
-          {stats.map((s, i) => (
-            <div key={i} className="flex flex-col items-center gap-2 py-8 px-4">
-              <div className="w-12 h-12 bg-white/10 rounded-xl flex items-center justify-center">
-                {s.icon}
-              </div>
-              <span className="text-3xl font-bold text-amber-300">{isAr ? s.numAr : s.numEn}</span>
-              <span className="text-white/70 text-sm">{isAr ? s.labelAr : s.labelEn}</span>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* About text */}
       <div className="bg-white py-16">
         <div className="max-w-4xl mx-auto px-4 text-center">
           <p className="text-gray-600 text-lg leading-[1.9] mb-6">
             {isAr
-              ? 'يُعدّ مستشفى نجران المتخصص من أبرز المستشفيات في المنطقة الجنوبية للمملكة العربية السعودية، إذ يقدم خدمات طبية شاملة تغطي مختلف التخصصات الدقيقة والعامة. يتميز المستشفى باستقطاب نخبة من الكوادر الطبية المتخصصة، وتوظيف أحدث التقنيات الطبية والأجهزة التشخيصية والعلاجية.'
-              : 'Najran Specialized Hospital is one of the most prominent hospitals in the southern region of Saudi Arabia, providing comprehensive medical services covering various medical specialties. The hospital is distinguished by attracting a distinguished group of specialized medical personnel and employing the latest medical technologies and diagnostic and therapeutic devices.'}
+              ? 'تُعدّ أكاديمية مستشفى تخصصي نجران الصحية من أبرز المنصات التعليمية والتدريبية في المنطقة الجنوبية للمملكة العربية السعودية، إذ تقدم برامج تدريبية وتعليمية شاملة تغطي مختلف التخصصات الصحية الدقيقة والعامة. تتميز الأكاديمية باستقطاب نخبة من الكوادر التدريبية والأكاديمية المتخصصة، وتوظيف أحدث الوسائل التعليمية والتقنيات التفاعلية في التدريب.'
+              : 'Specialized Najran Hospital Health Academy is one of the most prominent educational and training platforms in the southern region of Saudi Arabia, offering comprehensive training and educational programs covering various specialized and general health disciplines. The academy is distinguished by attracting a distinguished group of specialized training and academic personnel, and employing the latest educational tools and interactive training technologies.'}
           </p>
           <p className="text-gray-600 text-lg leading-[1.9]">
             {isAr
-              ? 'حصل المستشفى على العديد من الاعتمادات الدولية والمحلية المرموقة، في مقدمتها اعتماد جونز هوبكنز أرامكو الطبي، فضلًا عن شهادات التميز من الهيئات الصحية الوطنية والدولية، مما يؤكد ريادته في تقديم رعاية صحية آمنة ومتميزة.'
-              : 'The hospital has obtained many prestigious international and local accreditations, most notably the Johns Hopkins Aramco Medical accreditation, as well as certificates of excellence from national and international health bodies, affirming its leadership in providing safe and distinguished healthcare.'}
+              ? 'حصلت الأكاديمية على العديد من الاعتمادات الدولية والمحلية المرموقة، مما يؤكد ريادتها في تقديم تعليم وتدريب صحي متميز يواكب أحدث المستجدات العلمية، ويُسهم في بناء كفاءات صحية وطنية قادرة على تحقيق رؤية المملكة 2030 نحو رعاية صحية متكاملة وعالية الجودة.'
+              : 'The academy has obtained many prestigious international and local accreditations, affirming its leadership in providing distinguished health education and training that keeps pace with the latest scientific developments, and contributes to building national health competencies capable of achieving Saudi Vision 2030 towards comprehensive and high-quality healthcare.'}
           </p>
         </div>
       </div>

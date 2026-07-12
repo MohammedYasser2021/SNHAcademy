@@ -45,6 +45,10 @@ const galleryImages = [
 export default function AcademyGallery() {
   const { isAr } = useLang();
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const [loaded, setLoaded] = useState<Set<number>>(new Set());
+
+  const markLoaded = (i: number) =>
+    setLoaded((prev) => (prev.has(i) ? prev : new Set(prev).add(i)));
 
   return (
     <section id="gallery" className="py-24 bg-gray-50">
@@ -56,27 +60,45 @@ export default function AcademyGallery() {
 
         {/* Masonry-style grid */}
         <div className="columns-2 sm:columns-3 lg:columns-4 gap-4 space-y-4">
-          {galleryImages.map((src, i) => (
-            <button
-              key={i}
-              onClick={() => setLightboxIndex(i)}
-              className="group relative overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-all duration-300 w-full block cursor-pointer break-inside-avoid mb-4"
-            >
-              <img
-                src={src}
-                alt={`Academy ${i + 1}`}
-                className="w-full object-cover group-hover:scale-105 transition-transform duration-500"
-                onError={(e) => {
-                  (e.target as HTMLImageElement).style.display = 'none';
-                }}
-              />
-              <div className="absolute inset-0 bg-[#0a2342]/0 group-hover:bg-[#0a2342]/40 transition-all duration-300 flex items-center justify-center">
-                <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/20 backdrop-blur-sm rounded-full p-3">
-                  <ZoomIn size={22} className="text-white" />
+          {galleryImages.map((src, i) => {
+            const isAboveFold = i < 4; // first row(s): load immediately, rest lazily
+            const isLoaded = loaded.has(i);
+
+            return (
+              <button
+                key={i}
+                onClick={() => setLightboxIndex(i)}
+                className="group relative overflow-hidden rounded-2xl shadow-sm hover:shadow-xl transition-shadow duration-300 w-full block cursor-pointer break-inside-avoid mb-4 bg-gray-200"
+                style={{ contentVisibility: isAboveFold ? 'visible' : 'auto', containIntrinsicSize: '0 260px' }}
+              >
+                {/* Skeleton shown until the image finishes decoding, avoids blank flashes */}
+                {!isLoaded && (
+                  <div className="absolute inset-0 animate-pulse bg-gray-200" aria-hidden="true" />
+                )}
+
+                <img
+                  src={src}
+                  alt={`Academy ${i + 1}`}
+                  loading={isAboveFold ? 'eager' : 'lazy'}
+                  fetchPriority={isAboveFold ? 'high' : 'auto'}
+                  decoding="async"
+                  onLoad={() => markLoaded(i)}
+                  className={`w-full object-cover transition-all duration-500 ease-out group-hover:scale-105 ${
+                    isLoaded ? 'opacity-100' : 'opacity-0'
+                  }`}
+                  onError={(e) => {
+                    (e.target as HTMLImageElement).style.display = 'none';
+                    markLoaded(i);
+                  }}
+                />
+                <div className="absolute inset-0 bg-[#0a2342]/0 group-hover:bg-[#0a2342]/40 transition-colors duration-300 flex items-center justify-center">
+                  <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-white/20 backdrop-blur-sm rounded-full p-3">
+                    <ZoomIn size={22} className="text-white" />
+                  </div>
                 </div>
-              </div>
-            </button>
-          ))}
+              </button>
+            );
+          })}
         </div>
       </div>
 

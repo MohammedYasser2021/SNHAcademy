@@ -3,7 +3,6 @@ import { Menu, X } from 'lucide-react';
 import { useLang } from '../context/LanguageContext';
 import logo from '../assets/logo.png';
 
-
 const navLinks = [
   { id: 'vision', ar: 'الرؤية والرسالة', en: 'Vision & Mission' },
   { id: 'org-chart', ar: 'الهيكل التنظيمي', en: 'Org Chart' },
@@ -36,13 +35,16 @@ export default function Navbar() {
   return (
     <header
       className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[#0a2342] shadow-lg' : 'bg-transparent'
+        scrolled ? 'bg-[#0a2342] shadow-lg' : 'bg-[#0a2342]/70 backdrop-blur-sm'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16 lg:h-20">
         {/* Logo */}
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex-shrink-0">
-          <img src={logo} alt="SNH Academy" className="h-10 lg:h-14 object-contain" />
+        <button
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+          className="flex-shrink-0 bg-white rounded-xl p-1.5 shadow-md"
+        >
+          <img src={logo} alt="SNH Academy" className="h-8 lg:h-11 object-contain" />
         </button>
 
         {/* Desktop Nav */}

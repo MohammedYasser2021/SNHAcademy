@@ -9,91 +9,44 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
   </div>
 );
 
-interface OrgNode {
-  ar: string;
-  en: string;
-  color?: string;
-  children?: OrgNode[];
+// Simple pill/rounded box used for every node in the chart
+function OrgBox({
+  text,
+  pill = false,
+  bold = false,
+}: {
+  text: string;
+  pill?: boolean;
+  bold?: boolean;
+}) {
+  return (
+    <div
+      className={[
+        'text-white text-center shadow-md px-6 py-3 min-w-[180px] max-w-[260px]',
+        pill ? 'rounded-full' : 'rounded-xl',
+        bold ? 'font-bold' : 'font-semibold',
+        'text-sm md:text-base',
+      ].join(' ')}
+      style={{ backgroundColor: '#1e4d8c' }}
+    >
+      {text}
+    </div>
+  );
 }
 
-const orgTree: OrgNode = {
-  ar: 'مدير الأكاديمية',
-  en: 'Academy Director',
-  color: '#0a2342',
-  children: [
-    {
-      ar: 'وحدة التعليم الطبي المستمر',
-      en: 'CME Unit',
-      color: '#7a1a3a',
-      children: [
-        { ar: 'برامج CME', en: 'CME Programs' },
-        { ar: 'الاعتماد والجودة', en: 'Accreditation & Quality' },
-      ],
-    },
-    {
-      ar: 'وحدة التدريب والتطوير',
-      en: 'Training & Development Unit',
-      color: '#7a1a3a',
-      children: [
-        { ar: 'التدريب السريري', en: 'Clinical Training' },
-        { ar: 'التطوير المهني', en: 'Professional Development' },
-      ],
-    },
-    {
-      ar: 'وحدة البحث العلمي',
-      en: 'Research Unit',
-      color: '#7a1a3a',
-      children: [
-        { ar: 'الأبحاث الصحية', en: 'Health Research' },
-        { ar: 'النشر العلمي', en: 'Scientific Publication' },
-      ],
-    },
-    {
-      ar: 'وحدة الشؤون الأكاديمية',
-      en: 'Academic Affairs Unit',
-      color: '#7a1a3a',
-      children: [
-        { ar: 'شؤون المتدربين', en: 'Trainee Affairs' },
-        { ar: 'الجداول والبرامج', en: 'Scheduling & Programs' },
-      ],
-    },
-  ],
-};
-
-function NodeBox({ node, isAr, level = 0 }: { node: OrgNode; isAr: boolean; level?: number }) {
-  const bg = node.color || '#1e4d8c';
-  const isLeaf = !node.children || node.children.length === 0;
-
+// Vertical connector line with an arrowhead pointing down
+function VLine({ height = 28 }: { height?: number }) {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center" style={{ height }}>
+      <div className="w-0.5 flex-1 bg-[#1e293b]" />
       <div
-        className="rounded-xl px-5 py-3 text-white text-center font-semibold shadow-md text-sm md:text-base min-w-[140px] max-w-[180px]"
-        style={{ backgroundColor: bg }}
-      >
-        {isAr ? node.ar : node.en}
-      </div>
-
-      {node.children && node.children.length > 0 && (
-        <>
-          {/* vertical connector */}
-          <div className="w-0.5 h-6 bg-gray-300" />
-          {/* horizontal bar */}
-          <div className="relative flex items-start justify-center gap-0">
-            <div
-              className="absolute top-0 left-[calc(50%+70px)] right-[calc(50%+70px)] h-0.5 bg-gray-300"
-              style={{ left: '10%', right: '10%' }}
-            />
-            <div className="flex gap-4 md:gap-6 lg:gap-8">
-              {node.children.map((child, i) => (
-                <div key={i} className="flex flex-col items-center">
-                  <div className="w-0.5 h-6 bg-gray-300" />
-                  <NodeBox node={child} isAr={isAr} level={level + 1} />
-                </div>
-              ))}
-            </div>
-          </div>
-        </>
-      )}
+        className="w-0 h-0"
+        style={{
+          borderLeft: '5px solid transparent',
+          borderRight: '5px solid transparent',
+          borderTop: '7px solid #1e293b',
+        }}
+      />
     </div>
   );
 }
@@ -101,7 +54,16 @@ function NodeBox({ node, isAr, level = 0 }: { node: OrgNode; isAr: boolean; leve
 export default function OrgChart() {
   const { isAr } = useLang();
 
-  const secondLevel = orgTree.children || [];
+  const labels = {
+    title: isAr ? 'الهيكل التنظيمي للأكاديمية' : 'Academy Organizational structure',
+    coo: isAr ? 'الرئيس التنفيذي للعمليات' : 'COO',
+    director: isAr ? 'مدير الأكاديمية' : 'Academy Director',
+    children: [
+      isAr ? 'سكرتير الأكاديمية' : 'Academy Secretary',
+      isAr ? 'مشرف التعليم' : 'Education Supervisor',
+      isAr ? 'مشرف الشؤون الإدارية' : 'Admin Supervisor',
+    ],
+  };
 
   return (
     <section id="org-chart" className="py-24 bg-white">
@@ -112,53 +74,68 @@ export default function OrgChart() {
         />
 
         <div className="overflow-x-auto">
-          <div className="min-w-[700px] flex flex-col items-center gap-0 py-4">
-            {/* Root */}
+        <div className="flex flex-col items-center gap-0 min-w-[700px] max-w-3xl mx-auto py-2">
+          {/* Title pill */}
+          <OrgBox text={labels.title} pill bold />
+          <VLine />
+
+          {/* COO pill */}
+          <OrgBox text={labels.coo} pill bold />
+          <VLine />
+
+          {/* Academy Director box */}
+          <OrgBox text={labels.director} bold />
+
+          {/* Branch down from director to horizontal bar */}
+          <div className="w-0.5 h-6 bg-[#1e293b]" />
+
+          {/* Connector zone: horizontal bar + 3 vertical arrows, positioned
+              at exact column centers (1/6, 3/6, 5/6) so it lines up with the
+              boxes below regardless of LTR/RTL direction */}
+          <div className="relative w-full" style={{ height: 34, direction: 'ltr' }}>
+            {/* horizontal line: spans from the center of the first column to
+                the center of the last column, i.e. 1/6 to 5/6 of the width */}
             <div
-              className="rounded-xl px-8 py-4 text-white text-center font-bold shadow-lg text-lg"
-              style={{ backgroundColor: '#0a2342' }}
-            >
-              {isAr ? orgTree.ar : orgTree.en}
-            </div>
-            <div className="w-0.5 h-8 bg-gray-300" />
-
-            {/* Second level with horizontal connector */}
-            <div className="relative w-full flex justify-center">
-              <div className="flex items-start gap-6 md:gap-10 relative">
-                {/* Horizontal top bar */}
-                <div className="absolute top-0 left-[50px] right-[50px] h-0.5 bg-gray-300" />
-                {secondLevel.map((node, i) => (
-                  <div key={i} className="flex flex-col items-center">
-                    <div className="w-0.5 h-8 bg-gray-300" />
-                    {/* Level 2 box */}
-                    <div
-                      className="rounded-xl px-4 py-3 text-white text-center font-semibold shadow-md text-sm min-w-[140px] max-w-[170px]"
-                      style={{ backgroundColor: '#7a1a3a' }}
-                    >
-                      {isAr ? node.ar : node.en}
-                    </div>
-
-                    {/* Level 3 children */}
-                    {node.children && (
-                      <div className="flex flex-col items-center">
-                        <div className="w-0.5 h-6 bg-gray-300" />
-                        <div className="flex gap-3">
-                          {node.children.map((child, j) => (
-                            <div key={j} className="flex flex-col items-center">
-                              <div className="w-0.5 h-6 bg-gray-300" />
-                              <div className="bg-blue-50 border border-[#0a2342]/20 text-[#0a2342] rounded-lg px-3 py-2 text-xs font-medium text-center min-w-[110px] max-w-[130px] shadow-sm">
-                                {isAr ? child.ar : child.en}
-                              </div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    )}
-                  </div>
-                ))}
-              </div>
-            </div>
+              className="absolute bg-[#1e293b]"
+              style={{ top: 0, height: 1, left: '16.6667%', right: '16.6667%' }}
+            />
+            {/* vertical drop + arrowhead at each column center.
+                Outer two (first/last) are thin; middle stays bold. */}
+            {[16.6667, 50, 83.3333].map((pct, i) => {
+              const thin = i !== 1;
+              return (
+                <div
+                  key={i}
+                  className="absolute flex flex-col items-center"
+                  style={{ left: `${pct}%`, top: 0, height: 34, transform: 'translateX(-50%)' }}
+                >
+                  <div
+                    className="flex-1 bg-[#1e293b]"
+                    style={{ width: thin ? 1 : 2 }}
+                  />
+                  <div
+                    className="w-0 h-0"
+                    style={{
+                      borderLeft: `${thin ? 4 : 5}px solid transparent`,
+                      borderRight: `${thin ? 4 : 5}px solid transparent`,
+                      borderTop: `${thin ? 5 : 7}px solid #1e293b`,
+                    }}
+                  />
+                </div>
+              );
+            })}
           </div>
+
+          {/* Three child nodes, one per equal-width column so their centers
+              match the connector positions above exactly */}
+          <div className="w-full grid grid-cols-3">
+            {labels.children.map((label, i) => (
+              <div key={i} className="flex justify-center px-1">
+                <OrgBox text={label} />
+              </div>
+            ))}
+          </div>
+        </div>
         </div>
       </div>
     </section>
