@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useLang } from '../context/LanguageContext';
 import Lightbox from './Lightbox';
 
-import acc1 from '../assets/1.PNG';
+import acc1 from '../assets/1.png';
 import acc2 from '../assets/2.PNG';
 import acc3 from '../assets/3.PNG';
 import acc4 from '../assets/4.PNG';
