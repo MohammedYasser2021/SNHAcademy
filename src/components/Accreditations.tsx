@@ -3,16 +3,16 @@ import { useLang } from '../context/LanguageContext';
 import Lightbox from './Lightbox';
 
 import acc1 from '../assets/1.png';
-import acc2 from '../assets/2.PNG';
-import acc3 from '../assets/3.PNG';
-import acc4 from '../assets/4.PNG';
-import acc5 from '../assets/5.PNG';
-import acc6 from '../assets/6.PNG';
-import acc7 from '../assets/7.PNG';
-import acc8 from '../assets/8.PNG';
-import acc9 from '../assets/9.PNG';
-import acc10 from '../assets/10.PNG';
-import acc11 from '../assets/11.PNG';
+import acc2 from '../assets/2.png';
+import acc3 from '../assets/3.png';
+import acc4 from '../assets/4.png';
+import acc5 from '../assets/5.png';
+import acc6 from '../assets/6.png';
+import acc7 from '../assets/7.png';
+import acc8 from '../assets/8.png';
+import acc9 from '../assets/9.png';
+import acc10 from '../assets/10.png';
+import acc11 from '../assets/11.png';
 
 const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
   <div className="text-center mb-14">
