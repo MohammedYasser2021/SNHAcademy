@@ -5,27 +5,27 @@ import { ZoomIn } from 'lucide-react';
 
 import academy1 from '../assets/academy_imgs/academy_1.png';
 import academy2 from '../assets/academy_imgs/academy_2.png';
-import academy3 from '../assets/academy_imgs/academy_3.jpg';
-import academy4 from '../assets/academy_imgs/academy_4.jpg';
-import academy5 from '../assets/academy_imgs/academy_5.jpg';
-import academy6 from '../assets/academy_imgs/academy_6.jpg';
-import academy7 from '../assets/academy_imgs/academy_7.jpg';
-import academy8 from '../assets/academy_imgs/academy_8.jpg';
-import academy9 from '../assets/academy_imgs/academy_9.jpg';
-import academy10 from '../assets/academy_imgs/academy_10.jpg';
-import academy11 from '../assets/academy_imgs/academy_11.jpg';
-import academy12 from '../assets/academy_imgs/academy_12.jpg';
-import academy13 from '../assets/academy_imgs/academy_13.jpg';
-import academy14 from '../assets/academy_imgs/academy_14.jpg';
-import academy15 from '../assets/academy_imgs/academy_15.jpg';
-import academy16 from '../assets/academy_imgs/academy_16.jpg';
-import academy17 from '../assets/academy_imgs/academy_17.jpg';
-import academy18 from '../assets/academy_imgs/academy_18.jpg';
-import academy19 from '../assets/academy_imgs/academy_19.jpg';
-import academy20 from '../assets/academy_imgs/academy_20.jpg';
-import academy21 from '../assets/academy_imgs/academy_21.jpg';
-import academy22 from '../assets/academy_imgs/academy_22.jpg';
-import academy23 from '../assets/academy_imgs/academy_23.jpg';
+import academy3 from '../assets/academy_imgs/academy_3.JPG';
+import academy4 from '../assets/academy_imgs/academy_4.JPG';
+import academy5 from '../assets/academy_imgs/academy_5.JPG';
+import academy6 from '../assets/academy_imgs/academy_6.JPG';
+import academy7 from '../assets/academy_imgs/academy_7.JPG';
+import academy8 from '../assets/academy_imgs/academy_8.JPG';
+import academy9 from '../assets/academy_imgs/academy_9.JPG';
+import academy10 from '../assets/academy_imgs/academy_10.JPG';
+import academy11 from '../assets/academy_imgs/academy_11.JPG';
+import academy12 from '../assets/academy_imgs/academy_12.JPG';
+import academy13 from '../assets/academy_imgs/academy_13.JPG';
+import academy14 from '../assets/academy_imgs/academy_14.JPG';
+import academy15 from '../assets/academy_imgs/academy_15.JPG';
+import academy16 from '../assets/academy_imgs/academy_16.JPG';
+import academy17 from '../assets/academy_imgs/academy_17.JPG';
+import academy18 from '../assets/academy_imgs/academy_18.JPG';
+import academy19 from '../assets/academy_imgs/academy_19.JPG';
+import academy20 from '../assets/academy_imgs/academy_20.JPG';
+import academy21 from '../assets/academy_imgs/academy_21.JPG';
+import academy22 from '../assets/academy_imgs/academy_22.JPG';
+import academy23 from '../assets/academy_imgs/academy_23.JPG';
 
 const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
   <div className="text-center mb-14">
