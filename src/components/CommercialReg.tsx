@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLang } from '../context/LanguageContext';
 import Lightbox from './Lightbox';
 import { ZoomIn, FileText } from 'lucide-react';
+import nn from '../assets/nn.png';
 
 const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
   <div className="text-center mb-14">
@@ -43,7 +44,7 @@ export default function CommercialReg() {
               className="group relative overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-300 inline-block cursor-pointer"
             >
               <img
-                src="src/assets/nn.png"
+                src={nn}
                 alt="Commercial Registration"
                 className="max-h-80 w-auto object-contain group-hover:scale-105 transition-transform duration-300"
               />

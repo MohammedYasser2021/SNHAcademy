@@ -2,6 +2,18 @@ import React, { useState } from 'react';
 import { useLang } from '../context/LanguageContext';
 import Lightbox from './Lightbox';
 
+import acc1 from '../assets/1.PNG';
+import acc2 from '../assets/2.PNG';
+import acc3 from '../assets/3.PNG';
+import acc4 from '../assets/4.PNG';
+import acc5 from '../assets/5.PNG';
+import acc6 from '../assets/6.PNG';
+import acc7 from '../assets/7.PNG';
+import acc8 from '../assets/8.PNG';
+import acc9 from '../assets/9.PNG';
+import acc10 from '../assets/10.PNG';
+import acc11 from '../assets/11.PNG';
+
 const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
   <div className="text-center mb-14">
     <h2 className="text-3xl md:text-4xl font-bold text-[#0a2342] mb-3">{title}</h2>
@@ -11,17 +23,17 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
 );
 
 const accreditations = [
-  { img: 'src/assets/1.PNG', ar: 'جمعية القلب السعودية', en: 'Saudi Heart Association' },
-  { img: 'src/assets/2.PNG', ar: 'الهيئة السعودية للتخصصات الطبية', en: 'Saudi Commission for Health Specialties' },
-  { img: 'src/assets/3.PNG', ar: 'مستشفى صديق الطفل', en: 'Baby Friendly Hospital' },
-  { img: 'src/assets/4.PNG', ar: 'مستشفى صديق كبار السن', en: 'Age-Friendly Hospital' },
-  { img: 'src/assets/5.PNG', ar: 'جائزة التميز في الرعاية الصحية', en: 'Healthcare Excellence Award' },
-  { img: 'src/assets/6.PNG', ar: 'اعتماد سباهي (SPAHI)', en: 'SPAHI Accreditation' },
-  { img: 'src/assets/7.PNG', ar: 'اعتماد التعليم الطبي المستمر', en: 'CME Accreditation' },
-  { img: 'src/assets/8.PNG', ar: 'شهادة الأمن السيبراني', en: 'Cybersecurity Certificate' },
-  { img: 'src/assets/9.PNG', ar: 'شهادة مواءمة', en: 'Alignment Certificate' },
-  { img: 'src/assets/10.PNG', ar: 'شهادة التميز من الطبقة الأولى', en: 'First Class Excellence Certificate' },
-  { img: 'src/assets/11.PNG', ar: 'اعتماد جونز هوبكنز أرامكو الطبي', en: 'Johns Hopkins Aramco Medical Accreditation' },
+  { img: acc1, ar: 'جمعية القلب السعودية', en: 'Saudi Heart Association' },
+  { img: acc2, ar: 'الهيئة السعودية للتخصصات الطبية', en: 'Saudi Commission for Health Specialties' },
+  { img: acc3, ar: 'مستشفى صديق الطفل', en: 'Baby Friendly Hospital' },
+  { img: acc4, ar: 'مستشفى صديق كبار السن', en: 'Age-Friendly Hospital' },
+  { img: acc5, ar: 'جائزة التميز في الرعاية الصحية', en: 'Healthcare Excellence Award' },
+  { img: acc6, ar: 'اعتماد سباهي (SPAHI)', en: 'SPAHI Accreditation' },
+  { img: acc7, ar: 'اعتماد التعليم الطبي المستمر', en: 'CME Accreditation' },
+  { img: acc8, ar: 'شهادة الأمن السيبراني', en: 'Cybersecurity Certificate' },
+  { img: acc9, ar: 'شهادة مواءمة', en: 'Alignment Certificate' },
+  { img: acc10, ar: 'شهادة التميز من الطبقة الأولى', en: 'First Class Excellence Certificate' },
+  { img: acc11, ar: 'اعتماد جونز هوبكنز أرامكو الطبي', en: 'Johns Hopkins Aramco Medical Accreditation' },
 ];
 
 const images = accreditations.map((a) => a.img);

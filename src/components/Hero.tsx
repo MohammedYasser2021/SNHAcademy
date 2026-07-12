@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLang } from '../context/LanguageContext';
 import { ChevronDown } from 'lucide-react';
+import logo from '../assets/logo.png';
 
 export default function Hero() {
   const { isAr } = useLang();
@@ -17,7 +18,7 @@ export default function Hero() {
       <div className="relative z-10 text-center px-6 flex flex-col items-center gap-8">
         <div className="bg-white rounded-2xl p-5 shadow-2xl animate-fade-in">
           <img
-            src="src/assets/logo.png"
+            src={logo}
             alt="SNH Academy Logo"
             className="h-28 md:h-52 object-contain"
           />

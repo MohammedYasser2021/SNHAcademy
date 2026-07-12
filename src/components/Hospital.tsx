@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLang } from '../context/LanguageContext';
 import { Heart, Users, Award, Building2 } from 'lucide-react';
+import cover from '../assets/cover.png';
 
 const stats = [
   { icon: <Bed />, numAr: '+500', numEn: '500+', labelAr: 'سرير', labelEn: 'Beds' },
@@ -21,7 +22,7 @@ export default function Hospital() {
       {/* Cover image */}
       <div className="relative h-[60vh] md:h-[70vh] overflow-hidden">
         <img
-          src="src/assets/cover.jpg"
+          src={cover}
           alt="Najran Specialized Hospital"
           className="w-full h-full object-cover"
         />

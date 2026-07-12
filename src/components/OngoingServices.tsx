@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLang } from '../context/LanguageContext';
 import Lightbox from './Lightbox';
 import { ZoomIn } from 'lucide-react';
+import services from '../assets/services.png';
 
 const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (
   <div className="text-center mb-14">
@@ -56,7 +57,7 @@ export default function OngoingServices() {
               className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 w-full block cursor-pointer"
             >
               <img
-                src="src/assets/services.png"
+                src={services}
                 alt="Services"
                 className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500 rounded-2xl"
               />
