@@ -73,7 +73,7 @@ export default function OngoingServices() {
 
       {open && (
         <Lightbox
-          images={['/assets/services.png']}
+          images={[services]}
           index={0}
           onClose={() => setOpen(false)}
           onPrev={() => {}}
