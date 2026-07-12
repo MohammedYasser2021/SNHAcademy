@@ -40,7 +40,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 flex items-center justify-between h-16 lg:h-20">
         {/* Logo */}
         <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="flex-shrink-0">
-          <img src="src/assets/logo.png" alt="SNH Academy" className="h-10 lg:h-14 object-contain" />
+          <img src="../assets/logo.png" alt="SNH Academy" className="h-10 lg:h-14 object-contain" />
         </button>
 
         {/* Desktop Nav */}
