@@ -11,7 +11,7 @@ const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string 
   </div>
 );
 
-const trainingImages = Array.from({ length: 6 }, (_, i) => `./assets/Training_${i + 1}.png`);
+const trainingImages = Array.from({ length: 6 }, (_, i) => `../assets/Training_${i + 1}.png`);
 
 export default function TrainingCourses() {
   const { isAr } = useLang();
