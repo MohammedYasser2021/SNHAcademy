@@ -1,6 +1,8 @@
 import React from 'react';
 import { useLang } from '../context/LanguageContext';
+{/* @ts-ignore */}
 import reception from '../assets/reception.png';
+{/* @ts-ignore */}
 import logo from '../assets/logo.png';
 
 export default function Reception() {
@@ -22,7 +24,7 @@ export default function Reception() {
 
             <h1 className="text-[#0a2342] text-2xl sm:text-3xl md:text-4xl font-bold leading-tight tracking-tight">
               {isAr
-                ? 'مرحباً بكم في مستشفى تخصصي نجران الصحية '
+                ? 'مرحباً بكم في أكاديمية مستشفى تخصصي نجران الصحية '
                 : 'Welcome to Specialized Najran Hospital Health Academy'}
             </h1>
 
@@ -40,9 +42,9 @@ export default function Reception() {
                 {isAr ? 'تواصل معنا' : 'Contact Us'}
               </button>
 
-              <button
+     <button
                 onClick={() => document.getElementById('programs')?.scrollIntoView({ behavior: 'smooth' })}
-                className="w-full sm:w-56 lg:w-auto bg-[#0a2342]/5 hover:bg-[#0a2342]/10 border border-[#0a2342]/15 text-[#0a2342] font-semibold px-8 py-3 rounded-full transition-all duration-300 hover:scale-105 text-center"
+                className="w-full sm:w-56 lg:w-auto bg-[#0a2342] hover:bg-[#0d3060] text-white font-bold px-8 py-3 rounded-full transition-all duration-300 shadow-lg hover:shadow-[#0a2342]/30 hover:scale-105 text-center"
               >
                 {isAr ? 'استكشف البرامج' : 'Explore Programs'}
               </button>

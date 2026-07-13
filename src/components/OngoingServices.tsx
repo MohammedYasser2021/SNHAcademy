@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useLang } from '../context/LanguageContext';
 import Lightbox from './Lightbox';
 import { ZoomIn } from 'lucide-react';
+{/* @ts-ignore */}
 import services from '../assets/services.PNG';
 
 const SectionHeading = ({ title, subtitle }: { title: string; subtitle?: string }) => (

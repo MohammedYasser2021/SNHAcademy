@@ -1,6 +1,7 @@
 import React from 'react';
 import { useLang } from '../context/LanguageContext';
 import { Heart, Users, Award, Building2 } from 'lucide-react';
+{/* @ts-ignore */}
 import cover from '../assets/cover.jpg';
 
 const stats = [

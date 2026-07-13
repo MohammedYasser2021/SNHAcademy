@@ -37,9 +37,9 @@ export default function FloatingButtons() {
       </a>
 
       {/* Scroll to top - bottom right */}
-      <button
+  <button
         onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#0a2342] hover:bg-[#0d3060] text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-[#0a2342]/40 hover:scale-110 transition-all duration-300 ${
+        className={`fixed bottom-6 right-6 z-50 w-14 h-14 bg-[#7B043C] hover:bg-[#5c0330] text-white rounded-full flex items-center justify-center shadow-lg hover:shadow-[#7B043C]/40 hover:scale-110 transition-all duration-300 ${
           visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4 pointer-events-none'
         }`}
         aria-label="Scroll to top"
