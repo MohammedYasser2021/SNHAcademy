@@ -31,7 +31,7 @@ const socialLinks = [
   },
   {
     id: 'instagram',
-    href: 'https://instagram.com',
+    href: 'https://www.instagram.com/snh_academy',
     label: 'Instagram',
     icon: (
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" className="w-3.5 h-3.5">
@@ -43,7 +43,7 @@ const socialLinks = [
   },
   {
     id: 'x',
-    href: 'https://x.com',
+    href: 'https://x.com/Snh_Academy',
     label: 'X',
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-3 h-3">
@@ -53,7 +53,7 @@ const socialLinks = [
   },
   {
     id: 'tiktok',
-    href: 'https://tiktok.com',
+    href: 'https://www.tiktok.com/@snh_academy1',
     label: 'TikTok',
     icon: (
       <svg viewBox="0 0 24 24" fill="currentColor" className="w-3.5 h-3.5">
