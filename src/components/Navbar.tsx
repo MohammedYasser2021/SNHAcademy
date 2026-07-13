@@ -97,74 +97,100 @@ export default function Navbar() {
     >
       {/*
         dir="ltr" bel thabbet el 3 a3mida el kobar (social - nav - lang/logo).
-        3ala mobile: grid 3 a3mida (social shemal / logo fel nos / lang+hamburger yemin).
+        3ala mobile (< 767px): row mostaqel — lang+hamburger shemal, logo yemin, min ghair social icons.
+        3ala tablet/desktop (>= md): byrga3 el grid el asly zay ma howa, men ghair ay taghyir.
         3ala desktop (xl): byrga3 flex 3ady, w el nav bard-ha bt-akhod dir munasib
         3ashan tertib el ro-abet yeb2a sa7 fel 3araby (awel 3onsor yemin) w fel english (awel 3onsor shemal).
       */}
-      <div
-        dir="ltr"
-        className="max-w-7xl mx-auto px-4 h-20 lg:h-24 grid grid-cols-3 items-center xl:flex xl:justify-between"
-      >
-        {/* Social Icons - always left */}
-        <div className="flex items-center gap-2 justify-self-start">
-          {socialLinks.map((s) => (
-            <a
-              key={s.id}
-              href={s.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={s.label}
-              className="w-7 h-7 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white transition-colors"
-            >
-              {s.icon}
-            </a>
-          ))}
-        </div>
-
-        {/* Logo - centered on mobile only */}
-        <button
-          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="justify-self-center xl:hidden"
-        >
-          <img src={logo} alt="SNH Academy" className="h-16 object-contain" />
-        </button>
-
-        {/* Desktop Nav - reading order flips per language so it stops reversing in Arabic */}
-        <nav
-          dir={isAr ? 'rtl' : 'ltr'}
-          className="hidden xl:flex items-center gap-1 justify-center"
-        >
-          {navLinks.map((l) => (
+      <div dir="ltr" className="max-w-7xl mx-auto px-4">
+        {/* Mobile layout (< 767px) — lang+menu on the left, logo on the right */}
+        <div className="flex md:hidden items-center justify-between h-20">
+          <div className="flex items-center gap-3">
             <button
-              key={l.id}
-              onClick={() => scrollTo(l.id)}
-              className="text-white/90 hover:text-white text-[13px] font-medium px-3 py-1.5 rounded hover:bg-white/10 transition-all whitespace-nowrap"
+              onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
+              className="text-white border border-white/40 hover:bg-white/10 rounded-full px-3 py-1 text-sm font-semibold transition"
             >
-              {isAr ? l.ar : l.en}
+              {lang === 'ar' ? 'EN' : 'عربي'}
             </button>
-          ))}
-        </nav>
+            <button
+              className="text-white p-1"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <X size={24} /> : <Menu size={24} />}
+            </button>
+          </div>
 
-        {/* Right side: lang + hamburger (mobile) / lang + logo (desktop, lang just left of logo) */}
-        <div className="flex items-center gap-3 justify-self-end">
-          <button
-            onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
-            className="text-white border border-white/40 hover:bg-white/10 rounded-full px-3 py-1 text-sm font-semibold transition"
-          >
-            {lang === 'ar' ? 'EN' : 'عربي'}
-          </button>
-          <button
-            className="xl:hidden text-white p-1"
-            onClick={() => setOpen(!open)}
-          >
-            {open ? <X size={24} /> : <Menu size={24} />}
-          </button>
           <button
             onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            className="hidden xl:block flex-shrink-0"
+            className="flex-shrink-0"
           >
-            <img src={logo} alt="SNH Academy" className="h-16 lg:h-24 object-contain" />
+            <img src={logo} alt="SNH Academy" className="h-14 object-contain" />
           </button>
+        </div>
+
+        {/* Tablet / Desktop layout (>= 767px), unchanged */}
+        <div className="hidden md:grid grid-cols-3 items-center xl:flex xl:justify-between h-24 lg:h-28">
+          {/* Social Icons - always left */}
+          <div className="flex items-center gap-2 justify-self-start">
+            {socialLinks.map((s) => (
+              <a
+                key={s.id}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="w-7 h-7 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white transition-colors"
+              >
+                {s.icon}
+              </a>
+            ))}
+          </div>
+
+          {/* Logo - centered on tablet only (below xl) */}
+          <button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            className="justify-self-center xl:hidden"
+          >
+            <img src={logo} alt="SNH Academy" className="h-20 object-contain" />
+          </button>
+
+          {/* Desktop Nav - reading order flips per language so it stops reversing in Arabic */}
+          <nav
+            dir={isAr ? 'rtl' : 'ltr'}
+            className="hidden xl:flex items-center gap-1 justify-center"
+          >
+            {navLinks.map((l) => (
+              <button
+                key={l.id}
+                onClick={() => scrollTo(l.id)}
+                className="text-white/90 hover:text-white text-[13px] font-medium px-3 py-1.5 rounded hover:bg-white/10 transition-all whitespace-nowrap"
+              >
+                {isAr ? l.ar : l.en}
+              </button>
+            ))}
+          </nav>
+
+          {/* Right side: lang + hamburger (tablet) / lang + logo (desktop, lang just left of logo) */}
+          <div className="flex items-center gap-3 justify-self-end">
+            <button
+              onClick={() => setLang(lang === 'ar' ? 'en' : 'ar')}
+              className="text-white border border-white/40 hover:bg-white/10 rounded-full px-3 py-1 text-sm font-semibold transition"
+            >
+              {lang === 'ar' ? 'EN' : 'عربي'}
+            </button>
+            <button
+              className="xl:hidden text-white p-1"
+              onClick={() => setOpen(!open)}
+            >
+              {open ? <X size={24} /> : <Menu size={24} />}
+            </button>
+            <button
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              className="hidden xl:block flex-shrink-0"
+            >
+              <img src={logo} alt="SNH Academy" className="h-20 lg:h-28 object-contain" />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -183,6 +209,22 @@ export default function Navbar() {
               {isAr ? l.ar : l.en}
             </button>
           ))}
+
+          {/* Social Icons - inside the mobile sidebar, below the links */}
+          <div className="flex items-center gap-2 justify-center pt-4">
+            {socialLinks.map((s) => (
+              <a
+                key={s.id}
+                href={s.href}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={s.label}
+                className="w-8 h-8 rounded-full bg-white/15 hover:bg-white/25 flex items-center justify-center text-white transition-colors"
+              >
+                {s.icon}
+              </a>
+            ))}
+          </div>
         </div>
       )}
     </header>
