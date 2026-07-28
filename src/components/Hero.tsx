@@ -8,7 +8,13 @@ import cover from '../assets/cover.jpg';
 {/* @ts-ignore */}
 import mainHospital from '../assets/mainhospital.jpeg';
 
-const slides = [logo, cover, mainHospital];
+// each slide defines its own fit: 'contain' keeps the whole image visible (good for logos),
+// 'cover' fills the full width/height (good for photos)
+const slides = [
+  { src: logo, fit: 'contain' },
+  { src: cover, fit: 'cover' },
+  { src: mainHospital, fit: 'cover' },
+];
 
 export default function Hero() {
   const { isAr } = useLang();
@@ -22,23 +28,23 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pt-32 md:pt-40 lg:pt-48 pb-10 bg-white">
+    <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden pb-10 bg-white">
       {/* Decorative subtle circles */}
       <div className="absolute top-[-10%] right-[-5%] w-[500px] h-[500px] bg-[#0d3060]/5 rounded-full blur-3xl" />
       <div className="absolute bottom-[-10%] left-[-5%] w-[400px] h-[400px] bg-[#7a1a3a]/5 rounded-full blur-3xl" />
 
-      <div className="relative z-10 text-center px-6 flex flex-col items-center gap-6 w-full">
-        {/* Slideshow */}
-        <div className="w-full max-w-3xl animate-fade-in">
-          <div className="relative w-full aspect-[16/10] md:aspect-[16/9] rounded-3xl overflow-hidden shadow-2xl bg-white border border-gray-100">
-            {slides.map((src, index) => (
+      <div className="relative z-10 w-full flex flex-col items-center gap-6">
+        {/* Slideshow - full page width, starts right below navbar */}
+        <div className="w-full animate-fade-in pt-20 md:pt-24">
+          <div className="relative w-full aspect-[21/9] md:aspect-[21/8] overflow-hidden shadow-2xl bg-white">
+            {slides.map((slide, index) => (
               <img
                 key={index}
-                src={src}
+                src={slide.src}
                 alt={`slide-${index}`}
-                className={`absolute inset-0 w-full h-full object-contain transition-opacity duration-1000 ease-in-out ${
-                  index === current ? 'opacity-100' : 'opacity-0'
-                }`}
+                className={`absolute inset-0 w-full h-full transition-opacity duration-1000 ease-in-out ${
+                  slide.fit === 'cover' ? 'object-cover' : 'object-contain'
+                } ${index === current ? 'opacity-100' : 'opacity-0'}`}
               />
             ))}
           </div>
@@ -58,7 +64,7 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="space-y-4 animate-fade-in-up">
+        <div className="space-y-4 animate-fade-in-up text-center px-6">
           <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#0a2342] leading-tight">
             {isAr ? 'أكاديمية مستشفى تخصصي نجران الصحية' : 'Specialized Najran Hospital Health Academy'}
           </h1>
@@ -72,7 +78,7 @@ export default function Hero() {
           </p>
         </div>
 
-        <div className="flex flex-wrap gap-4 justify-center">
+        <div className="flex flex-wrap gap-4 justify-center px-6">
           <button
             onClick={() => document.getElementById('vision')?.scrollIntoView({ behavior: 'smooth' })}
             className="w-56 bg-amber-400 hover:bg-amber-300 text-[#0a2342] font-bold px-8 py-3 rounded-full transition-all shadow-lg hover:shadow-amber-400/30 hover:scale-105"
