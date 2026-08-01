@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import { useLang } from '../context/LanguageContext';
 import Lightbox from './Lightbox';
-import { ZoomIn, Play, Pause, Volume2, VolumeX } from 'lucide-react';
+import { ZoomIn, Play, Pause, Volume2, VolumeX, Maximize, Minimize } from 'lucide-react';
 
 {/* @ts-ignore */}
 import academy1 from '../assets/academy_imgs/academy_1.png';
@@ -86,6 +86,8 @@ function AcademyVideoShowcase() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const [isScrubbing, setIsScrubbing] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const playerRef = useRef<HTMLDivElement>(null);
   const hasTriedAutoplay = useRef(false);
 
   // Autoplay with sound once the section scrolls into view.
@@ -123,6 +125,27 @@ function AcademyVideoShowcase() {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
+
+  React.useEffect(() => {
+    const handleFullscreenChange = () => {
+      setIsFullscreen(document.fullscreenElement === playerRef.current);
+    };
+    document.addEventListener('fullscreenchange', handleFullscreenChange);
+    return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
+  }, []);
+
+  const toggleFullscreen = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const el = playerRef.current;
+    if (!el) return;
+    if (document.fullscreenElement) {
+      document.exitFullscreen();
+    } else {
+      el.requestFullscreen().catch(() => {
+        // Fullscreen request was blocked or unsupported
+      });
+    }
+  };
 
   const togglePlay = () => {
     const v = videoRef.current;
@@ -192,9 +215,12 @@ function AcademyVideoShowcase() {
         <div className="absolute -inset-1 bg-gradient-to-r from-[#0a2342] via-[#7a1a3a] to-[#0a2342] rounded-3xl opacity-20 blur-xl" />
 
         <div
-          className="relative rounded-3xl overflow-hidden shadow-2xl border border-white/10 bg-black group"
+          ref={playerRef}
+          className={`relative overflow-hidden shadow-2xl border border-white/10 bg-black group ${
+            isFullscreen ? 'w-screen h-screen flex items-center justify-center rounded-none' : 'rounded-3xl'
+          }`}
           onMouseEnter={() => setShowControls(true)}
-          onMouseLeave={() => !isPlaying && setShowControls(false)}
+          onMouseLeave={() => setShowControls(false)}
         >
           {/* Top accent bar */}
           <div className="absolute top-0 inset-x-0 h-1.5 bg-gradient-to-r from-[#0a2342] via-[#7a1a3a] to-[#0a2342] z-20" />
@@ -213,7 +239,9 @@ function AcademyVideoShowcase() {
             onTimeUpdate={(e) => {
               if (!isScrubbing) setCurrentTime(e.currentTarget.currentTime);
             }}
-            className="w-full aspect-video object-cover cursor-pointer"
+            className={`w-full cursor-pointer ${
+              isFullscreen ? 'h-full object-contain' : 'aspect-video object-cover'
+            }`}
           />
 
           {/* Dark overlay when paused for cinematic feel */}
@@ -221,12 +249,12 @@ function AcademyVideoShowcase() {
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-black/30 pointer-events-none transition-opacity duration-300" />
           )}
 
-          {/* Center play button */}
+          {/* Center play button - only shown on hover */}
           <button
             onClick={togglePlay}
             aria-label={isPlaying ? 'Pause video' : 'Play video'}
             className={`absolute inset-0 flex items-center justify-center transition-opacity duration-300 ${
-              isPlaying && !showControls ? 'opacity-0' : 'opacity-100'
+              showControls ? 'opacity-100' : 'opacity-0'
             }`}
           >
             <span className="relative flex items-center justify-center w-20 h-20 md:w-24 md:h-24 rounded-full bg-white/95 shadow-xl transition-transform duration-300 group-hover:scale-110">
@@ -239,21 +267,32 @@ function AcademyVideoShowcase() {
             </span>
           </button>
 
-          {/* Mute toggle */}
+          {/* Mute toggle - only shown on hover */}
           <button
             onClick={toggleMute}
             aria-label={isMuted ? 'Unmute' : 'Mute'}
             className={`absolute bottom-14 ${isAr ? 'left-4' : 'right-4'} z-20 w-11 h-11 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white transition-opacity duration-300 hover:bg-black/70 ${
-              showControls || !isPlaying ? 'opacity-100' : 'opacity-0'
+              showControls ? 'opacity-100' : 'opacity-0'
             }`}
           >
             {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
           </button>
 
-          {/* Progress / seek bar */}
+          {/* Fullscreen toggle */}
+          <button
+            onClick={toggleFullscreen}
+            aria-label={isFullscreen ? 'Exit fullscreen' : 'Enter fullscreen'}
+            className={`absolute bottom-14 ${isAr ? 'right-4' : 'left-4'} z-20 w-11 h-11 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white transition-opacity duration-300 hover:bg-black/70 ${
+              showControls ? 'opacity-100' : 'opacity-0'
+            }`}
+          >
+            {isFullscreen ? <Minimize size={18} /> : <Maximize size={18} />}
+          </button>
+
+          {/* Progress / seek bar - only shown on hover */}
           <div
             className={`absolute bottom-0 inset-x-0 z-20 px-4 pb-3 pt-8 bg-gradient-to-t from-black/70 to-transparent transition-opacity duration-300 ${
-              showControls || !isPlaying ? 'opacity-100' : 'opacity-0'
+              showControls ? 'opacity-100' : 'opacity-0'
             }`}
             onClick={(e) => e.stopPropagation()}
           >
