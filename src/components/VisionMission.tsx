@@ -21,8 +21,8 @@ export default function VisionMission() {
       iconColor: 'text-[#0a2342]',
       titleAr: 'الرؤية',
       titleEn: 'Vision',
-      textAr: 'أن تكون الأكاديمية مرجعًا إقليميًا رائدًا في التعليم الصحي والتدريب المهني المتميز، ومنصةً لبناء كفاءات صحية تُسهم في تحقيق رؤية المملكة 2030 نحو رعاية صحية متكاملة وعالية الجودة.',
-      textEn: 'To be a leading regional reference in health education and professional training, and a platform for building health competencies that contribute to achieving Saudi Vision 2030 towards comprehensive and high-quality healthcare.',
+      textAr: 'تسعى أكاديمية SNH للرعاية الصحية لأن تكون مركزًا للتميز في التعليم الصحي والتدريب المهني، من خلال تقديم برامج تعليمية معترف بها دوليًا تُسهم في إعداد كوادر صحية مؤهلة، ودعم التطوير المهني المستمر، والمساهمة في تطوير الخدمات الصحية في المملكة العربية السعودية بما يتماشى مع رؤية المملكة 2030.',
+      textEn: 'SNH Healthcare Academy strives to be a center of excellence in healthcare education and professional training by delivering internationally recognized learning programs that develop competent healthcare professionals, support continuous professional development, and contribute to the advancement of healthcare services in the Kingdom of Saudi Arabia in alignment with Saudi Vision 2030.',
       type: 'text',
     },
     {
@@ -32,8 +32,8 @@ export default function VisionMission() {
       iconColor: 'text-[#7a1a3a]',
       titleAr: 'الرسالة',
       titleEn: 'Mission',
-      textAr: 'تقديم برامج تدريبية وتعليمية متخصصة وفق أعلى المعايير العالمية، تُعزز الكفاءات المهنية والأكاديمية للكوادر الصحية، وتدعم ثقافة التعلم المستمر والتطوير المؤسسي لتحسين جودة الرعاية الصحية المقدمة للمرضى والمجتمع.',
-      textEn: 'To provide specialized training and educational programs according to the highest international standards, enhancing the professional and academic competencies of health personnel, and supporting a culture of continuous learning and institutional development to improve the quality of healthcare provided to patients and the community.',
+      textAr: 'تلتزم أكاديمية SNH للرعاية الصحية بتقديم تعليم عالي الجودة، وتدريب قائم على الكفاءات، وتطوير سريري، وتعليم قيادي، وفرص بحثية تُمكّن الكوادر الصحية من تحقيق التميز في رعاية المرضى، مع تعزيز الابتكار، والممارسة الأخلاقية، والتعلم المستمر، والأداء المؤسسي.',
+      textEn: 'SNH Healthcare Academy is committed to delivering high-quality education, competency-based training, clinical development, leadership education, and research opportunities that empower healthcare professionals to achieve excellence in patient care while fostering innovation, ethical practice, continuous learning, and organizational performance.',
       type: 'text',
     },
     {
