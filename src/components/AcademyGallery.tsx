@@ -68,12 +68,61 @@ const galleryImages = [
   academy22, academy23,
 ];
 
+function formatTime(seconds: number) {
+  if (!isFinite(seconds) || seconds < 0) return '0:00';
+  const m = Math.floor(seconds / 60);
+  const s = Math.floor(seconds % 60);
+  return `${m}:${s.toString().padStart(2, '0')}`;
+}
+
 function AcademyVideoShowcase() {
   const { isAr } = useLang();
   const videoRef = useRef<HTMLVideoElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const progressBarRef = useRef<HTMLDivElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [showControls, setShowControls] = useState(false);
+  const [currentTime, setCurrentTime] = useState(0);
+  const [duration, setDuration] = useState(0);
+  const [isScrubbing, setIsScrubbing] = useState(false);
+  const hasTriedAutoplay = useRef(false);
+
+  // Autoplay with sound once the section scrolls into view.
+  // Most browsers block unmuted autoplay before any user interaction on the page,
+  // so we try unmuted first and gracefully fall back to muted autoplay if blocked.
+  React.useEffect(() => {
+    const el = containerRef.current;
+    const v = videoRef.current;
+    if (!el || !v) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting && !hasTriedAutoplay.current) {
+            hasTriedAutoplay.current = true;
+            v.muted = false;
+            v.play()
+              .then(() => setIsMuted(false))
+              .catch(() => {
+                // Browser blocked unmuted autoplay, fall back to muted autoplay
+                v.muted = true;
+                setIsMuted(true);
+                v.play().catch(() => {
+                  // Autoplay fully blocked, will start once user interacts
+                });
+              });
+          } else if (!entry.isIntersecting && v && !v.paused) {
+            v.pause();
+          }
+        });
+      },
+      { threshold: 0.5 }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
 
   const togglePlay = () => {
     const v = videoRef.current;
@@ -95,6 +144,38 @@ function AcademyVideoShowcase() {
     setIsMuted(v.muted);
   };
 
+  const seekFromClientX = (clientX: number) => {
+    const bar = progressBarRef.current;
+    const v = videoRef.current;
+    if (!bar || !v || !duration) return;
+    const rect = bar.getBoundingClientRect();
+    let ratio = (clientX - rect.left) / rect.width;
+    ratio = Math.min(1, Math.max(0, ratio));
+    v.currentTime = ratio * duration;
+    setCurrentTime(v.currentTime);
+  };
+
+  const handleProgressPointerDown = (e: React.PointerEvent) => {
+    e.stopPropagation();
+    setIsScrubbing(true);
+    seekFromClientX(e.clientX);
+    const bar = progressBarRef.current;
+    bar?.setPointerCapture(e.pointerId);
+  };
+
+  const handleProgressPointerMove = (e: React.PointerEvent) => {
+    if (!isScrubbing) return;
+    seekFromClientX(e.clientX);
+  };
+
+  const handleProgressPointerUp = (e: React.PointerEvent) => {
+    setIsScrubbing(false);
+    const bar = progressBarRef.current;
+    bar?.releasePointerCapture(e.pointerId);
+  };
+
+  const progressPercent = duration > 0 ? (currentTime / duration) * 100 : 0;
+
   return (
     <div className="mb-16">
       <div className="text-center mb-8">
@@ -106,7 +187,7 @@ function AcademyVideoShowcase() {
         </h3>
       </div>
 
-      <div className="relative">
+      <div className="relative" ref={containerRef}>
         {/* Glow / accent frame */}
         <div className="absolute -inset-1 bg-gradient-to-r from-[#0a2342] via-[#7a1a3a] to-[#0a2342] rounded-3xl opacity-20 blur-xl" />
 
@@ -128,6 +209,10 @@ function AcademyVideoShowcase() {
             onClick={togglePlay}
             onPlay={() => setIsPlaying(true)}
             onPause={() => setIsPlaying(false)}
+            onLoadedMetadata={(e) => setDuration(e.currentTarget.duration)}
+            onTimeUpdate={(e) => {
+              if (!isScrubbing) setCurrentTime(e.currentTarget.currentTime);
+            }}
             className="w-full aspect-video object-cover cursor-pointer"
           />
 
@@ -158,12 +243,44 @@ function AcademyVideoShowcase() {
           <button
             onClick={toggleMute}
             aria-label={isMuted ? 'Unmute' : 'Mute'}
-            className={`absolute bottom-4 ${isAr ? 'left-4' : 'right-4'} z-20 w-11 h-11 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white transition-opacity duration-300 hover:bg-black/70 ${
+            className={`absolute bottom-14 ${isAr ? 'left-4' : 'right-4'} z-20 w-11 h-11 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center text-white transition-opacity duration-300 hover:bg-black/70 ${
               showControls || !isPlaying ? 'opacity-100' : 'opacity-0'
             }`}
           >
             {isMuted ? <VolumeX size={18} /> : <Volume2 size={18} />}
           </button>
+
+          {/* Progress / seek bar */}
+          <div
+            className={`absolute bottom-0 inset-x-0 z-20 px-4 pb-3 pt-8 bg-gradient-to-t from-black/70 to-transparent transition-opacity duration-300 ${
+              showControls || !isPlaying ? 'opacity-100' : 'opacity-0'
+            }`}
+            onClick={(e) => e.stopPropagation()}
+          >
+            <div
+              ref={progressBarRef}
+              onPointerDown={handleProgressPointerDown}
+              onPointerMove={handleProgressPointerMove}
+              onPointerUp={handleProgressPointerUp}
+              className="group/bar relative h-1.5 w-full rounded-full bg-white/25 cursor-pointer touch-none"
+            >
+              {/* Filled progress */}
+              <div
+                className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-[#7a1a3a] to-[#9c2449]"
+                style={{ width: `${progressPercent}%` }}
+              />
+              {/* Draggable thumb */}
+              <div
+                className="absolute top-1/2 -translate-y-1/2 w-3.5 h-3.5 rounded-full bg-white shadow-md scale-0 group-hover/bar:scale-100 transition-transform duration-150"
+                style={{ left: `calc(${progressPercent}% - 7px)` }}
+              />
+            </div>
+
+            <div className="flex justify-between mt-2 text-xs font-medium text-white/90 tabular-nums select-none" dir="ltr">
+              <span>{formatTime(currentTime)}</span>
+              <span>{formatTime(duration)}</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
