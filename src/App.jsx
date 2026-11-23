@@ -11,6 +11,7 @@ import Accreditations from './components/Accreditations';
 import TrainingCourses from './components/TrainingCourses';
 import CommercialReg from './components/CommercialReg';
 import AcademyGallery from './components/AcademyGallery';
+import News from './components/News';
 import Objectives2026 from './components/Objectives2026';
 import OngoingServices from './components/OngoingServices';
 import Reception from './components/Reception';
@@ -39,6 +40,7 @@ function AppContent() {
         <TrainingCourses />
         <CommercialReg />
         <AcademyGallery />
+        <News />
         <Objectives2026 />
         <OngoingServices />
         <Reception />

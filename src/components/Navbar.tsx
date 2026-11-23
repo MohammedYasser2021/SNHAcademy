@@ -12,6 +12,7 @@ const navLinks = [
   { id: 'accreditations', ar: 'الاعتمادات', en: 'Accreditations' },
   { id: 'training', ar: 'التدريب', en: 'Training' },
   { id: 'gallery', ar: 'الصور', en: 'Gallery' },
+  { id: 'news', ar: 'الأخبار', en: 'News' },
   { id: 'objectives', ar: 'أهداف 2026', en: 'Goals 2026' },
   { id: 'services', ar: 'الخدمات', en: 'Services' },
   { id: 'contact', ar: 'تواصل معنا', en: 'Contact' },
